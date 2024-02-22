@@ -4,6 +4,7 @@ import (
 	"sync"
 	"net"
 	"time"
+    	"os"
 	"io"
 	"fmt"
 	"github.com/brandnetworks/tcpproxy/backends"
@@ -92,6 +93,7 @@ func copyBytes(logLevel int, direction string, dest, src *net.TCPConn, wg *sync.
 	n, err := io.Copy(dest, src)
 	if err != nil {
 		log.Printf("I/O error: %v", err)
+		os.Exit(1)
 	}
 	if logLevel > 0 {
 		log.Printf("Copied %d bytes %s: %s -> %s", n, direction, src.RemoteAddr(), dest.RemoteAddr())
